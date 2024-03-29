@@ -1,18 +1,21 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useContext } from "react";
 
 import classes from "./AuthForm.module.css";
+import HeaderContext from "../../store/HeaderContext";
 
 const AuthForm = () => {
   const [isLogin, setIsLogin] = useState(true);
   const [loading, setIsLoading] = useState(true);
   const emailAuthRef = useRef();
   const passwordAuthRef = useRef();
+ const ctx= useContext(HeaderContext)
   const submitHandler = (event) => {
     event.preventDefault();
     setIsLoading(false);
 
     if (isLogin) {
-      fetch("https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyDxyZXEovyCOyu5YRjRIy0_-MXNNih-Bg0",
+      fetch(
+        "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyDbQjM5ZHO-YFs3fe1rVxJb0vKfGBYqgWs",
         {
           method: "POST",
           body: JSON.stringify({
@@ -32,14 +35,17 @@ const AuthForm = () => {
         }
       })
       .then((data) => {
-        console.log(data.idToken); // Store the token in state
+        
+        ctx.addToken(data.idToken)
+        
+        // Store the token in context
       })
       .catch((err) => {
         alert(err)
       });
     } else {
       fetch(
-        "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyDxyZXEovyCOyu5YRjRIy0_-MXNNih-Bg0",
+        "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyDbQjM5ZHO-YFs3fe1rVxJb0vKfGBYqgWs",
         {
           method: "POST",
           body: JSON.stringify({
