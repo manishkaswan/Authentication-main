@@ -1,43 +1,24 @@
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom';
 
-import classes from "./MainNavigation.module.css";
-import { useContext, useState } from "react";
-import HeaderContext from "../../store/HeaderContext";
-import AuthForm from "../Auth/AuthForm";
-import { Redirect } from "react-router-dom/cjs/react-router-dom.min";
+import classes from './MainNavigation.module.css';
 
 const MainNavigation = () => {
- const[logout,setLogout]= useState(false)
-  const ctx = useContext(HeaderContext);
-  const logoutHandler = () => {
-    ctx.removeToken();
-    setLogout(true)
-    
-  };
   return (
-    
     <header className={classes.header}>
-      <Link to="/">
+      <Link to='/'>
         <div className={classes.logo}>React Auth</div>
       </Link>
       <nav>
         <ul>
-          {!ctx.token?<li>
-            <Link to="/auth">Login</Link>
-          </li>:""}
-          {ctx.token?<li>
-            <Link to="/profile">Profile</Link>
-          </li>:""}
-          
-          {ctx.token ? (
-          
-            <li>
-              <button onClick={logoutHandler}>Logout</button>
-            </li>
-          ) : (
-            ""
-          )}
-          {logout?<Redirect to="/auth"></Redirect>:""}
+          <li>
+            <Link to='/auth'>Login</Link>
+          </li>
+          <li>
+            <Link to='/profile'>Profile</Link>
+          </li>
+          <li>
+            <button>Logout</button>
+          </li>
         </ul>
       </nav>
     </header>
