@@ -1,19 +1,20 @@
 import React, { useReducer } from "react";
 import HeaderContext from "./HeaderContext";
 const intialState = {
-  token: null,
-  profileState: false,
+  token: localStorage.getItem("user")
 };
 
 const reducerfn = (state, action) => {
   if (action.type === "ADD TOKEN") {
     const updatedToken = action.item;
+    localStorage.setItem("user",action.item)
     return {
       token: updatedToken,
     };
   }
   if (action.type === "REMOVE TOKEN") {
     const updatedToken = null
+    localStorage.removeItem("user")
     return {
       token: updatedToken,
     };
@@ -36,7 +37,7 @@ const HeaderContextProvider = (props) => {
       });
   };
   const HeaderContextHelper = {
-    ProfileState: false,
+  
     addToken: TokenSaveHandler,
     removeToken: TokenRemoveHandler,
     token: state.token,

@@ -38,6 +38,7 @@ const AuthForm = () => {
         })
         .then((data) => {
           ctx.addToken(data.idToken);
+          localStorage.setItem("user",JSON.stringify(data.idToken))
 
           // Store the token in context
         })
@@ -67,7 +68,7 @@ const AuthForm = () => {
           }
         })
         .then((data) => {
-          console.log(data.idToken); // Store the token in state
+          ctx.addToken(data.idToken); // Store the token in state
         })
         .catch((err) => {
           alert(err);

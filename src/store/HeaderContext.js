@@ -1,8 +1,8 @@
 import React from "react";
 
 const HeaderContext=React.createContext({
-    ProfileState:false,
-    addToken:()=>{},
+    token:null,
+    addToken:(data)=>{},
     removeToken:()=>{}
 })
 export default HeaderContext;
